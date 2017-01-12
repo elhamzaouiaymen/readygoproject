@@ -80,7 +80,7 @@ for i<=10 {
 
 //3- DECLARING FOREVER LOOP WE USE FOR ALSO BUT IN THIS WAY
 /*for{
-  fmt.Println("love you forever cyrine !")
+  fmt.Println("coding until you die !")
 }*/
 
 //FLOW CONTROL STATEMENT IF,ELSE,SWITCH,DEFER ...
