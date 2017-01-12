@@ -1,1 +1,2 @@
-# readygoproject
+Readygoproject is my first getstarted golang script. It contains the basic level of go programming language. It allows you to have a breif look and idea about the syntaxic view of this new language. I put comments on all different parts.
+Enjoy & get ready to go far ...
