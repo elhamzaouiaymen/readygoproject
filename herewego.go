@@ -114,8 +114,7 @@ default: fmt.Println("go have fun ! ")
 fmt.Println("******************DEFER FUNCTION*****************")
 defer fmt.Println("hamzaoui")
 defer  fmt.Println("lamine")
-/* defer function assure a kind of schedeling for some functions. we use it to schedule the execution of functions. its principle is based on LIFO
-scheduling algorithm*/
+/* defer function assure functions scheduling. we use it to schedule the execution of functions. its principle is based on LIFO scheduling algorithm*/
   fmt.Println("aline")
   fmt.Println("lina")
   fmt.Println("kenza")
