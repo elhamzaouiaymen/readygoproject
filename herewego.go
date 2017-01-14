@@ -11,7 +11,14 @@ import (
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 	"math"
+	"net/http"
+	"os"
+	"sort"
+	"strconv"
+	"strings"
 )
 
 func main() {
@@ -205,6 +212,90 @@ func main() {
 	changeXValnow(&a)
 	fmt.Println("the new value of a is", a)
 
+	//datatype
+	rect := Rectangle{50, 100}
+	//fmt.Println("rect attributes are :\n", rect.leftx, "\n", rect.topY, "\n", rect.height, "\n", rect.width, "area", rect.area())
+
+	trian := Triangle{3, 9}
+	circ := Circle{5}
+
+	fmt.Println("triangle's area is : ", getArea(trian), "\n Circle's area :", getArea(circ), "\n Rectangle's area is :", getArea(rect))
+
+	//advanced part : I/O files
+	fmt.Println("we began the advanced part of golang programming")
+	mystring := "here we go"
+	fmt.Println(mystring, "contains : ", strings.Count(mystring, "e"), " e")
+	fmt.Println(strings.Contains(mystring, "we"))
+	fmt.Println(strings.Replace(mystring, "e", "x", 2))
+	fmt.Println(strings.Index(mystring, "we"))
+
+	//how to split a string
+	csvString := "1,2,5,8,6,5"
+	fmt.Println("splitted string : \n", strings.Split(csvString, ","))
+
+	//how to sort a list of string and nums
+	liststrings := []string{"a", "c", "b"}
+	sort.Strings(liststrings)
+	fmt.Println("list of strings sorted", liststrings)
+
+	listnums := []string{"7", "1", "6"}
+	sort.Strings(listnums)
+	fmt.Println("list of nums sorted", listnums)
+
+	//io/outil file
+
+	file, err := os.Create("elbenz.txt")
+	//if error is happened log the error
+	//the equivalent of null in golang is nil
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	file.WriteString("this is an e-class 2016")
+
+	stream, err := ioutil.ReadFile("elbenz.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	readString := string(stream)
+	fmt.Println(readString)
+
+	//casting and conversion from a type to another
+
+	randval1 := 125.23
+	randval2 := "566.02"
+	randval3 := "5555"
+	randval4 := 22
+
+	fmt.Println("from int to float casting :", float64(randval4))
+	fmt.Println("from float to int casting : ", int(randval1))
+
+	//from string to int
+	newInt, _ := strconv.ParseInt(randval2, 0, 64)
+	fmt.Println(newInt)
+
+	//from string to float
+	newFloat, _ := strconv.ParseFloat(randval3, 64)
+	fmt.Println(newFloat)
+
+	//in this last part we gonna make an http server
+	//we import from the package net the package http
+
+	http.HandleFunc("/", handler1)
+	http.HandleFunc("/mercedes", handler2)
+	//we definea listener and the port
+	http.ListenAndServe(":8080", nil)
+}
+
+//defining handlers of the server
+
+func handler1(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "hello world")
+}
+
+func handler2(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "this the best or nothing")
 }
 
 func double(number int) int {
@@ -233,3 +324,56 @@ func panicit() {
 func changeXValnow(x *int) {
 	*x = 2
 }
+
+//in this part we gonna learn some basics of classes and polymorphism
+//defining datatype
+/*type Rectangle struct {
+	leftx  float64
+	topY   float64
+	height float64
+	width  float64
+}*/
+//defining a method for a datatype
+/* func (meth_receiver *type) method_name(attribute if has)outputtype{
+	method body
+}*/
+
+//polymorphism principles
+type Shape interface {
+	area() float64
+}
+
+type Rectangle struct {
+	height float64
+	width  float64
+}
+
+type Circle struct {
+	radius float64
+}
+
+type Triangle struct {
+	base    float64
+	hauteur float64
+}
+
+func (rect Rectangle) area() float64 {
+	return rect.height * rect.width
+}
+
+func (c Circle) area() float64 {
+	return math.Pi * math.Pow(c.radius, 2)
+}
+
+func (t Triangle) area() float64 {
+	return (t.base * t.hauteur) / 2
+}
+
+func getArea(sha Shape) float64 {
+	return sha.area()
+}
+
+/*to implement a method of an interface
+func (typename type) method_name() outputtype{
+	method body
+}*/
